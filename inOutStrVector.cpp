@@ -1,15 +1,13 @@
-// inOutStringVector.cpp -- Программа читает клавиатурный ввод в вектор
-// объектов string, сохраняет строковое содержимое (не объекты!) в файле, а
-// затем копирует содержимое файла обратно в вектор объектов string:
+// inOutStringVector.cpp -- ГЏГ°Г®ГЈГ°Г Г¬Г¬Г  Г·ГЁГІГ ГҐГІ ГЄГ«Г ГўГЁГ ГІГіГ°Г­Г»Г© ГўГўГ®Г¤ Гў ГўГҐГЄГІГ®Г°
+// Г®ГЎГєГҐГЄГІГ®Гў string, Г±Г®ГµГ°Г Г­ГїГҐГІ Г±ГІГ°Г®ГЄГ®ГўГ®ГҐ Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГҐ (Г­ГҐ Г®ГЎГєГҐГЄГІГ»!) Гў ГґГ Г©Г«ГҐ, Г 
+// Г§Г ГІГҐГ¬ ГЄГ®ГЇГЁГ°ГіГҐГІ Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГҐ ГґГ Г©Г«Г  Г®ГЎГ°Г ГІГ­Г® Гў ГўГҐГЄГІГ®Г° Г®ГЎГєГҐГЄГІГ®Гў string:
 #include <iostream>
 #include <algorithm>
 #include <iterator>
 #include <vector>
 #include <string>
-#include <sstream>
 #include <fstream>
 #include <cstdlib>
-#include <cstring>
 const char fileName[FILENAME_MAX] = "sstrings.txt";
 void ShowStr(const std::string & str) { std::cout << str << std::endl; }
 
@@ -48,20 +46,20 @@ int main()
     using namespace std;
     vector<string> vostr;
     string temp;
-    // Получить строки
-    cout << "Enter strings (empty line to quit):\n";    // Запрос на ввод строк
+    // ГЏГ®Г«ГіГ·ГЁГІГј Г±ГІГ°Г®ГЄГЁ
+    cout << "Enter strings (empty line to quit):\n";    // Г‡Г ГЇГ°Г®Г± Г­Г  ГўГўГ®Г¤ Г±ГІГ°Г®ГЄ
     while (getline(cin, temp) && temp[0] != '\0')
         vostr.push_back(temp);
 
-    cout << "Here is your input.\n";                    // Вывод введенных строк
+    cout << "Here is your input.\n";                    // Г‚Г»ГўГ®Г¤ ГўГўГҐГ¤ГҐГ­Г­Г»Гµ Г±ГІГ°Г®ГЄ
     for_each(vostr.begin(), vostr.end(), ShowStr);
 
-    // Сохранять в файле
+    // Г‘Г®ГµГ°Г Г­ГїГІГј Гў ГґГ Г©Г«ГҐ
     ofstream fout(fileName, ios_base::out | ios_base::app | ios_base::binary);
     if (!fout.is_open())
     {
         std::cerr << "Could not open file for output 4.\n";
-            // Не удается открыть файл для ввода
+            // ГЌГҐ ГіГ¤Г ГҐГІГ±Гї Г®ГІГЄГ°Г»ГІГј ГґГ Г©Г« Г¤Г«Гї ГўГўГ®Г¤Г 
         exit(EXIT_FAILURE);
     }
     cout << "Continue in file: \n";
@@ -69,14 +67,14 @@ int main()
     for_each(vostr.begin(), vostr.end(), ShowStr);
     fout.close();
 
-    // Восстановить содержимое файла
+    // Г‚Г®Г±Г±ГІГ Г­Г®ГўГЁГІГј Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГҐ ГґГ Г©Г«Г 
     vector<string> vistr;
     ifstream fin(fileName, std::ios_base::in | std::ios_base::binary);
     GetStr(fin, vistr);
 
 
     cout << "\nHere are the strings read from the file:\n";
-                    // Строки, прочитанные из файла
+                    // Г‘ГІГ°Г®ГЄГЁ, ГЇГ°Г®Г·ГЁГІГ Г­Г­Г»ГҐ ГЁГ§ ГґГ Г©Г«Г 
     for_each(vistr.begin(), vistr.end(), ShowStr);
 
     fin.close();
